@@ -1,0 +1,194 @@
+<div class="animated fadeIn">
+  <div class="card card-accent-primary">
+    <div class="card-header">
+      <i class="icon-screen-desktop"></i> <strong>{{'Terminals'| i18n}}</strong>
+    </div>
+    <div class="card-body">
+
+
+      <div>
+        <dx-data-grid
+          #grid
+          id="gridContainer"
+          keyExpr="id"
+          [hoverStateEnabled]="true"
+          [dataSource]="this.terminalService.items$ | async"
+          [remoteOperations]="false"
+          [columnMinWidth]="40"
+          [columnHidingEnabled]="false"
+          [allowColumnReordering]="true"
+          [allowColumnResizing]="true"
+          [rowAlternationEnabled]="true"
+          [showRowLines]="true"
+          [showBorders]="true"
+          [selectedRowKeys]="[]"
+          [focusedRowEnabled]="true"
+          [autoNavigateToFocusedRow]="true"
+          (onExporting)="exportGridToExcel($event)"
+          (onSelectionChanged)="selectedChanged($event)"
+          (onRowExpanding)="onRowExpanding($event)"
+          (onRowCollapsed)="onRowCollapsed($event)"
+
+          [masterDetail]="{ enabled: true, template: 'detail' }"
+        >
+          <dxo-selection mode="single"></dxo-selection>
+          <dxo-sorting mode="multiple"></dxo-sorting>
+          <dxo-load-panel [enabled]="true"></dxo-load-panel>
+          <dxo-export [enabled]="true" [allowExportSelectedData]="false"></dxo-export>
+          <dxo-state-storing [enabled]="true" type="localStorage" storageKey="grid-TerminalList"></dxo-state-storing>
+          <dxo-column-chooser [enabled]="true" mode="select"></dxo-column-chooser>
+          <dxo-paging [pageSize]="10"></dxo-paging>
+          <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[10, 25, 50, 100]" [showInfo]="true"></dxo-pager>
+          <dxo-search-panel [visible]="isTableSearchPanel" [highlightCaseSensitive]="true"
+                            [width]="150"></dxo-search-panel>
+          <dxo-filter-row [visible]="isTableFilterRow"></dxo-filter-row>
+
+          <dxo-group-panel [visible]="true" emptyPanelText="{{ isMobile ? '' : 'Data group'|i18n}}"></dxo-group-panel>
+          <dxo-grouping [autoExpandAll]="false" [contextMenuEnabled]="true" expandMode="rowClick"></dxo-grouping>
+
+          <dxi-column dataField="id" caption="{{'Actions'|i18n}}" [width]="85" [allowFiltering]="false"
+                      [allowSorting]="false" cellTemplate="cellTemplate" [allowGrouping]="false"></dxi-column>
+          <dxi-column caption="{{'Client'|i18n}}">
+            <dxi-column dataField="client.name_short" dataType="string" caption="{{'Name'|i18n}}"></dxi-column>
+            <dxi-column dataField="client.phone" dataType="string" caption="{{'Phone number'|i18n}}"
+                        [visible]="false"></dxi-column>
+            <dxi-column dataField="client.address" dataType="string" caption="{{'Address'|i18n}}"
+                        [visible]="false"></dxi-column>
+          </dxi-column>
+
+          <dxi-column dataField="serial_number" dataType="string" caption="{{'Number'|i18n}}"></dxi-column>
+
+          <dxi-column caption="{{'Cash desk'|i18n}}">
+            <dxi-column dataField="cash_desk_number" dataType="string" caption="{{'Number'|i18n}}"></dxi-column>
+            <dxi-column dataField="cash_desks_type.name" dataType="string" caption="{{'Type'|i18n}}"></dxi-column>
+          </dxi-column>
+
+          <dxi-column caption="{{'Gas Station'|i18n}}">
+            <dxi-column dataField="point_sale.name" dataType="string" caption="{{'Name'|i18n}}"></dxi-column>
+            <dxi-column dataField="point_sale.address" dataType="string" caption="{{'Address'|i18n}}"></dxi-column>
+          </dxi-column>
+
+          <dxi-column dataField="is_active" dataType="boolean" caption="{{'Active'|i18n}}" [width]="50"
+                      [minWidth]="40"></dxi-column>
+          <dxi-column dataField="is_archive" dataType="boolean" caption="{{'Archival'|i18n}}" [width]="50"
+                      [minWidth]="40"></dxi-column>
+
+          <div *dxTemplate="let item of 'detail'">
+            <div class='row'>
+              <div class='col-md-12 col-sm-12 col-xs-12'>
+                <tabset>
+                  <tab>
+                    <ng-template tabHeading><i class="icon-calculator txt-color-blue"></i>&nbsp;<span
+                      class="font-weight-bold-500">{{'Terminal'|i18n}}</span></ng-template>
+
+                    <div class='row'>
+                      <div class='col-md-4 col-sm-12 col-xs-12'>
+                        <legend class="legend-detail">{{'Basic information'|i18n}}</legend>
+
+                        <table class="table table-hover table-condensed table-bordered app-form">
+                          <tbody>
+                          <tr>
+                            <td class='table-expand-header table-expand-header-first'>{{'Number'|i18n}}:</td>
+                            <td>{{item.data.serial_number}}</td>
+                          </tr>
+                          <tr>
+                            <td class='table-expand-header'>{{'ActiveF'|i18n}}:</td>
+                            <td><i *ngIf="item.data.is_active;else booleanfalse" class="fa fa-check-square-o fa-lg"></i>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td class='table-expand-header'>{{'ArchivalF'|i18n}}:</td>
+                            <td><i *ngIf="item.data.is_archive;else booleanfalse"
+                                   class="fa fa-check-square-o fa-lg"></i></td>
+                          </tr>
+
+                          </tbody>
+                        </table>
+
+                      </div>
+
+                      <div class='col-md-4 col-sm-12 col-xs-12'>
+                        <legend class="legend-detail">{{'Cash desk'|i18n}}</legend>
+
+                        <table class="table table-hover table-condensed table-bordered app-form">
+                          <tbody>
+                          <tr>
+                            <td class='table-expand-header table-expand-header-first'>{{'Number'|i18n}}:</td>
+                            <td>{{item.data.cash_desk_number}}</td>
+                          </tr>
+                          <tr>
+                            <td class='table-expand-header'>{{'Type'|i18n}}:</td>
+                            <td>{{item.data.cash_desks_type.name}}</td>
+                          </tr>
+
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class='col-md-4 col-sm-12 col-xs-12'>
+                        <legend class="legend-detail">{{'Gas Station'|i18n}}</legend>
+
+                        <table class="table table-hover table-condensed table-bordered app-form">
+                          <tbody>
+                          <tr>
+                            <td class='table-expand-header table-expand-header-first'>{{'Name'|i18n}}:</td>
+                            <td>{{item.data.point_sale.name}}</td>
+                          </tr>
+                          <tr>
+                            <td class='table-expand-header'>{{'Address'|i18n}}:</td>
+                            <td>{{item.data.point_sale.address}}</td>
+                          </tr>
+
+                          </tbody>
+                        </table>
+
+
+                      </div>
+                    </div>
+                  </tab>
+                  <tab>
+                    <ng-template tabHeading><i class="icon-user txt-color-blue"></i>&nbsp;<span
+                      class="font-weight-bold-500">{{'Client'|i18n}}</span></ng-template>
+
+                    <div class='row'>
+                      <div class='col-md-4 col-sm-12 col-xs-12'>
+                        <legend class="legend-detail">{{'Basic information'|i18n}}</legend>
+
+                        <table class="table table-hover table-condensed table-bordered app-form">
+                          <tbody>
+                          <tr>
+                            <td class='table-expand-header table-expand-header-first'>{{'Name'|i18n}}:</td>
+                            <td>{{item.data.client.name_short}}</td>
+                          </tr>
+                          <tr>
+                            <td class='table-expand-header'>{{'Phone number'|i18n}}:</td>
+                            <td>{{item.data.client.phone}}</td>
+                          </tr>
+                          <tr>
+                            <td class='table-expand-header'>{{'Address'|i18n}}:</td>
+                            <td>{{item.data.client.address}}</td>
+                          </tr>
+
+                          </tbody>
+                        </table>
+
+
+                      </div>
+                    </div>
+                  </tab>
+
+                  <tab>
+                    <ng-template tabHeading><i class="icon-layers txt-color-blue"></i>&nbsp;<span
+                      class="font-weight-bold-500">{{'Groups'|i18n}}</span></ng-template>
+                    <app-terminal-group-ref [item]="item.data"
+                                            [isLoading]='detailReloading(item.key)'></app-terminal-group-ref>
+                  </tab>
+                </tabset>
+              </div>
+            </div>
+          </div>
+        </dx-data-grid>
+      </div>
+      <ng-template #booleanfalse><i class="fa fa-square-o fa-lg"></i></ng-template>
+    </div>
+  </div>
+</div>

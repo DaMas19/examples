@@ -1,0 +1,52 @@
+@import "../../../../../scss/colors";
+
+::ng-deep #gridContainer .dx-datagrid-header-panel {
+  padding: 0;
+  background-color: #dcebf8;
+
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  border-right: 1px solid #ddd;
+  border-left: 1px solid #ddd;
+  border-top: 1px solid #ddd;
+}
+
+::ng-deep #gridContainer .dx-datagrid-header-panel .dx-toolbar {
+  margin: 0;
+  padding-right: 5px;
+  padding-left: 5px;
+  background-color: transparent;
+  font-style: italic;
+}
+
+::ng-deep #gridContainer .dx-datagrid-group-panel .dx-group-panel-message {
+  color: rgba($black, .6);
+}
+
+::ng-deep #gridContainer .dx-datagrid-header-panel .dx-toolbar-items-container {
+  height: 45px;
+}
+
+::ng-deep #gridContainer .dx-datagrid-header-panel .dx-button .dx-icon {
+  color: $grey-700;
+}
+
+::ng-deep #gridContainer .dx-datagrid-header-panel .dx-button .dx-icon.dx-icon-refresh {
+  color: $blue-800;
+}
+
+::ng-deep #gridContainer .dx-datagrid-header-panel .dx-button .dx-icon.dx-icon-add {
+  color: $green-600;
+}
+
+::ng-deep #gridContainer .dx-datagrid-header-panel .dx-button .dx-icon.dx-icon-trash {
+  color: $red-700;
+}
+
+::ng-deep #gridContainer .dx-datagrid-header-panel .dx-button .dx-icon.dx-icon-bulletlist {
+  background-color: #fff;
+}
+
+::ng-deep #gridContainer .dx-button-mode-outlined {
+  background-color: #fff;
+}

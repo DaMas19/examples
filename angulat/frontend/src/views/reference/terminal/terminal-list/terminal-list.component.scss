@@ -1,0 +1,95 @@
+@import "../../../../../scss/colors";
+
+::ng-deep #gridContainer .dx-datagrid-header-panel {
+  padding: 0;
+  background-color: #dcebf8;
+
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  border-right: 1px solid #ddd;
+  border-left: 1px solid #ddd;
+  border-top: 1px solid #ddd;
+}
+
+::ng-deep #gridContainer .dx-datagrid-header-panel .dx-toolbar {
+  margin: 0;
+  padding-right: 5px;
+  padding-left: 5px;
+  background-color: transparent;
+  font-style: italic;
+}
+
+::ng-deep #gridContainer .dx-datagrid-group-panel .dx-group-panel-message {
+  color: rgba($black, .6);
+}
+
+::ng-deep #gridContainer .dx-datagrid-header-panel .dx-toolbar-items-container {
+  height: 45px;
+}
+
+::ng-deep #gridContainer .dx-datagrid-header-panel .dx-button .dx-icon {
+  color: $grey-700;
+}
+
+::ng-deep #gridContainer .dx-datagrid-header-panel .dx-button .dx-icon.dx-icon-refresh {
+  color: $blue-800;
+}
+
+::ng-deep #gridContainer .dx-datagrid-header-panel .dx-button .dx-icon.dx-icon-add {
+  color: $green-600;
+}
+
+::ng-deep #gridContainer .dx-datagrid-header-panel .dx-button .dx-icon.dx-icon-trash {
+  color: $red-700;
+}
+
+::ng-deep #gridContainer .dx-datagrid-header-panel .dx-button .dx-icon.dx-icon-bulletlist {
+  background-color: #fff;
+}
+
+::ng-deep #gridContainer .dx-button-mode-outlined {
+  background-color: #fff;
+}
+
+::ng-deep .dx-datagrid-rowsview .dx-row > .dx-master-detail-cell {
+  padding: 5px;
+  background-color: transparent;
+}
+
+::ng-deep .dx-datagrid-rowsview .dx-master-detail-row:not(.dx-datagrid-edit-form) .dx-master-detail-cell {
+  background-color: $amber-50;
+}
+
+::ng-deep .tab-content .tab-pane {
+  padding: 0.5rem;
+}
+
+.table-expand-header {
+  text-align: right;
+  font-weight: bold !important;
+}
+
+.table-expand-header.table-expand-header-first {
+  width: 110px;
+}
+
+.table td {
+  padding: 0.5rem;
+}
+
+::ng-deep .action-button .dx-button .dx-button-content {
+  padding: 1px;
+  width: 45px;
+  margin: 0;
+  .fa {
+    color: $grey-500;
+  }
+}
+
+.is-menu-separator-ct {
+  padding: 0 7px !important;
+  line-height: 9px;
+}
+
+
+

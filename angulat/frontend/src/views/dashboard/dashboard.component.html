@@ -1,0 +1,32 @@
+<div class="animated fadeIn">
+  <div class="row">
+
+    <!--/.col-->
+    <div class="col-6 col-lg-3">
+      <div class="card">
+        <div class="card-body p-3 clearfix">
+            <i class="fa fa-laptop faa-flash animated-hover p-3 font-2xl mr-3 float-left"
+               [class.bg-danger]="(terminalLifeItemsCount) !== 0"
+               [class.bg-success]="(terminalLifeItemsCount) === 0"
+
+            ></i>
+            <div class="h5 mb-0 mt-2"
+                 [class.text-danger]="(terminalLifeItemsCount) !== 0"
+                 [class.text-black-50]="(terminalLifeItemsCount) === 0"
+            >{{terminalLifeItemsCount}}</div>
+            <div class="text-muted text-uppercase font-weight-bold font-xs">{{'Terminal fail connection'|i18n}}</div>
+
+
+          <app-ng-spinner *ngIf='terminalLifeReloading'></app-ng-spinner>
+        </div>
+        <div class="card-footer px-3 py-2">
+          <a class="font-weight-bold font-xs btn-block text-muted" href="#">{{'View More'|i18n}} <i
+            class="fa fa-angle-right float-right font-lg"></i></a>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+</div>
+

@@ -1,0 +1,32 @@
+<div class="col-md-6">
+  <dx-data-grid
+    #grid
+    id="gridContainer"
+    keyExpr="id"
+    [hoverStateEnabled]="true"
+    [dataSource]="this.terminalService.groupItems$ | async"
+    [remoteOperations]="false"
+    [columnMinWidth]="40"
+    [columnHidingEnabled]="false"
+    [allowColumnReordering]="true"
+    [allowColumnResizing]="true"
+    [rowAlternationEnabled]="true"
+    [showRowLines]="true"
+    [showBorders]="true"
+    [selectedRowKeys]="[]"
+    [focusedRowEnabled]="true"
+
+    [autoNavigateToFocusedRow]="true"
+
+    (onExporting)="exportGridToExcel($event)"
+    (onSelectionChanged)="selectedChanged($event)"
+  >
+    <dxo-selection mode="single"></dxo-selection>
+    <dxo-sorting mode="multiple"></dxo-sorting>
+    <dxo-load-panel [enabled]="true"></dxo-load-panel>
+    <dxo-export [enabled]="true" [allowExportSelectedData]="false"></dxo-export>
+    <dxi-column dataField="name" dataType="string" caption="{{'Name'|i18n}}"></dxi-column>
+
+  </dx-data-grid>
+
+</div>
